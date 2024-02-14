@@ -1,6 +1,5 @@
 package com.example.back.service.car
 
-import com.example.back.service.carBase.CarBaseRepository
 import com.example.back.service.carBase.CarBaseService
 import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
@@ -52,7 +51,13 @@ class CarService(
 
     @Transactional
     override fun LoadInitialData() {
-        val carBase = carBaseService.GetCarBaseById(1)
-        cars.save(Car(1, "1234ABC", true, carBase))
+        val carBase1 = carBaseService.GetCarBaseById(1)
+        val carBase2 = carBaseService.GetCarBaseById(2)
+        val carBase3 = carBaseService.GetCarBaseById(3)
+
+        cars.save(Car(1, "1234ABC", true, carBase1))
+        cars.save(Car(1, "1234ABC", true, carBase2))
+        cars.save(Car(1, "1234ABC", true, carBase3))
+
     }
 }
