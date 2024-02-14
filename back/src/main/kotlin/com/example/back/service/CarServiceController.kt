@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/cars")
-class CarServiceController @Autowired constructor(private val carBaseService: CarBaseService,
-                                                  private val carService: CarService
-) {
+class CarServiceController @Autowired constructor(private val carService: CarService) {
 
     /**
      * Return all Cars
@@ -46,7 +44,7 @@ class CarServiceController @Autowired constructor(private val carBaseService: Ca
     /**
      * Create a Car
      */
-    @PostMapping
+    @PostMapping("/add")
     @Transactional
     fun createCar(@RequestBody car: Car): ResponseEntity<Any> {
         carService.AddCar(car)

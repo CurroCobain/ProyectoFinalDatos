@@ -7,14 +7,11 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.stereotype.Component
 
 @Component
-class DataLoader(private val carBaseService: CarBaseService,
-    private val carService: CarService) : ApplicationRunner {
+class DataLoader(private val carBaseService: CarBaseService) : ApplicationRunner {
 
     override fun run(args: ApplicationArguments?) {
         // Lógica para cargar datos en tu servicio
         carBaseService.loadInitialData()
-        carService.LoadInitialData()
-
     }
 }
 

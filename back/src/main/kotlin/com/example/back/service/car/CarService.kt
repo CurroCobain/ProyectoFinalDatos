@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class CarService(
     @Autowired
-    private val cars: CarRepository,
-    private val carBaseService: CarBaseService
+    private val cars: CarRepository
 ): CarInterface {
 
     override fun GetAllCars(): MutableList<Car?>{
@@ -51,13 +50,10 @@ class CarService(
 
     @Transactional
     override fun LoadInitialData() {
+        /*
         val carBase1 = carBaseService.GetCarBaseById(1)
         val carBase2 = carBaseService.GetCarBaseById(2)
         val carBase3 = carBaseService.GetCarBaseById(3)
-
-        cars.save(Car(1, "1234ABC", true, carBase1))
-        cars.save(Car(1, "1234ABC", true, carBase2))
-        cars.save(Car(1, "1234ABC", true, carBase3))
-
+         */
     }
 }

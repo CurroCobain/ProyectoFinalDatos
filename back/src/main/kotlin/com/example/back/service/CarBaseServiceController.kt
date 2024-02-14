@@ -22,6 +22,10 @@ class CarBaseServiceController @Autowired constructor(private val carBaseService
     fun getAllCarBases(): ResponseEntity<Any> {
         return ResponseEntity(carBaseService.GetAllCarBases(), HttpStatus.OK)
     }
+    @GetMapping("/{id}")
+    fun getACarBase(id: Long): ResponseEntity<Any> {
+        return ResponseEntity(carBaseService.GetCarBaseById(id), HttpStatus.OK)
+    }
 
     /**
      * Update a Car Base
