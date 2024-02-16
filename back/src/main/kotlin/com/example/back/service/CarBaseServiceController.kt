@@ -23,7 +23,7 @@ class CarBaseServiceController @Autowired constructor(private val carBaseService
         return ResponseEntity(carBaseService.GetAllCarBases(), HttpStatus.OK)
     }
     @GetMapping("/{id}")
-    fun getACarBase(id: Long): ResponseEntity<Any> {
+    fun getACarBase(@PathVariable("id")id: Long): ResponseEntity<Any> {
         return ResponseEntity(carBaseService.GetCarBaseById(id), HttpStatus.OK)
     }
 

@@ -8,7 +8,11 @@ data class CarBaseDTO(
     val cars: List<CarDTO?> = mutableListOf()
 ){
     override fun toString(): String {
-        return "nombre => ${this.name} \n"
+        return """
+            id => ${this.id}
+            nombre => ${this.name}
+            
+        """.trimIndent()
 
     }
 }

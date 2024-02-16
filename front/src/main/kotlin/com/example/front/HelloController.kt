@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import javafx.fxml.FXML
 import javafx.scene.control.Label
+import javafx.scene.control.TextField
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -22,13 +23,71 @@ class HelloController {
     private lateinit var welcomeText: Label
 
     @FXML
-    private fun onHelloButtonClick() {
-        sendPostRequest(apiUrlBasic)
-        val response = sendGetRequest(apiUrl)
+    private lateinit var infoLabel: Label
+
+    @FXML
+    private lateinit var textField1: TextField
+
+    @FXML
+    private lateinit var textField2: TextField
+
+    @FXML
+    private lateinit var textField3: TextField
+
+    @FXML
+    private lateinit var textField4: TextField
+
+    private lateinit var myCarBase : CarBaseDTO
+
+    @FXML
+    private fun onSearchButtonClick() {
+        myCarBase = getCarBaseById(textField1.text.toLong())
+        textField1.text = myCarBase.id.toString()
+        textField2.text = myCarBase.name
+        textField3.text = myCarBase.address
+        textField4.text = myCarBase.cars.toString()
+        infoLabel.text = myCarBase.toString()
+    }
+
+    @FXML
+    private fun onUpdateButtonClick() {
+        infoLabel!!.text = "Se presionó el botón Actualizar."
+        // Aquí iría la lógica para actualizar algo
+    }
+
+    @FXML
+    private fun onDeleteButtonClick() {
+        textField1.text = "prueba"
+        // Aquí iría la lógica para borrar algo
+    }
+    @FXML
+    private fun onCreateButtonClick() {
+        infoLabel!!.text = "Se presionó el botón Crear."
+        // Aquí iría la lógica para crear algo
+    }
+
+    @FXML
+    private fun onBasesButtonClick(){
+            infoLabel.text = ""
+            sendPostRequest(apiUrlBasic)
+            val response = sendGetRequest(apiUrl)
+            val carBaseList = parseJsonToCarBasesDTO(response)
+            // Ahora puedes trabajar con la lista de bases
+            // Por ejemplo, puedes imprimir los nombres de las bases en la consola
+            carBaseList.forEach { infoLabel.text += it.toString() }
+
+    }
+    private fun searchBasesByParameter(parameter: Long?) {
+        infoLabel.text = "" // Limpiamos el contenido anterior
+        val searchUrl = "http://localhost:8080/carBases/$parameter"
+        val response = sendGetRequest(searchUrl)
         val carBaseList = parseJsonToCarBasesDTO(response)
-        // Ahora puedes trabajar con la lista de bases
-        // Por ejemplo, puedes imprimir los nombres de las bases en la consola
-        carBaseList.forEach { welcomeText.text += it.toString() }
+        carBaseList.forEach { infoLabel.text += it.toString() }
+    }
+
+    @FXML
+    private fun onTaxisButtonClick(){
+        infoLabel.text = "taxis buscados"
     }
 
 
@@ -66,7 +125,7 @@ class HelloController {
         return responseBody
     }
     fun getCarBaseById(identifier: Long): CarBaseDTO {
-        val apiUrlId = "http://localhost:8080/$identifier"
+        val apiUrlId = "http://localhost:8080/carBases/$identifier"
         val response = sendGetRequest(apiUrlId)
         val carBase1 = parseJsonToCarBaseDTO(response)
         return carBase1
@@ -93,4 +152,6 @@ class HelloController {
 
         return responseBody
     }
+
+
 }
