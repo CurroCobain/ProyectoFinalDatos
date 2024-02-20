@@ -8,8 +8,8 @@ import javafx.stage.Stage
 class HelloApplication : Application() {
     override fun start(stage: Stage) {
         val fxmlLoader = FXMLLoader(HelloApplication::class.java.getResource("hello-view.fxml"))
-        val scene = Scene(fxmlLoader.load(), 320.0, 240.0)
-        stage.title = "Hello!"
+        val scene = Scene(fxmlLoader.load(), 820.0, 620.0)
+        stage.title = "Welcome to Cab Manager"
         stage.scene = scene
         stage.show()
     }

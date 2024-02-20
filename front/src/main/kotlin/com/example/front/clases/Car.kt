@@ -7,7 +7,10 @@ data class CarDTO (
     val base: CarBaseDTO?
 ){
     override fun toString(): String {
-        return "matrícula => ${this.plate} \n "
+        return """
+            matrícula => ${this.plate}
+            base ====> ${this.base!!.name}
+        """.trimIndent()
 
     }
 }

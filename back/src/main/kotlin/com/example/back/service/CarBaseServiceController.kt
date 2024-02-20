@@ -12,23 +12,32 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/carBases")
-class CarBaseServiceController @Autowired constructor(private val carBaseService: CarBaseService,
-                                                      private val carService: CarService) {
+class CarBaseServiceController @Autowired constructor(
+    private val carBaseService: CarBaseService,  // Servicio para gestionar las bases de coches
+    private val carService: CarService  // Servicio para gestionar los coches
+) {
 
     /**
-     * Return all Car Bases
+     * Obtiene todas las bases de coches.
      */
     @GetMapping("/allBases")
     fun getAllCarBases(): ResponseEntity<Any> {
         return ResponseEntity(carBaseService.GetAllCarBases(), HttpStatus.OK)
     }
+
+    /**
+     * Obtiene una base de coches por su ID.
+     * @param id ID de la base de coches a buscar.
+     */
     @GetMapping("/{id}")
     fun getACarBase(@PathVariable("id")id: Long): ResponseEntity<Any> {
         return ResponseEntity(carBaseService.GetCarBaseById(id), HttpStatus.OK)
     }
 
     /**
-     * Update a Car Base
+     * Actualiza una base de coches existente.
+     * @param id ID de la base de coches a actualizar.
+     * @param carBase La base de coches con los datos actualizados.
      */
     @PutMapping("/{id}")
     @Transactional
@@ -38,7 +47,8 @@ class CarBaseServiceController @Autowired constructor(private val carBaseService
     }
 
     /**
-     * Delete a Car Base
+     * Elimina una base de coches existente.
+     * @param id ID de la base de coches a eliminar.
      */
     @DeleteMapping("/{id}")
     @Transactional
@@ -48,13 +58,13 @@ class CarBaseServiceController @Autowired constructor(private val carBaseService
     }
 
     /**
-     * Create a Car Base
+     * Crea una nueva base de coches.
+     * @param carBase La base de coches a crear.
      */
-    @PostMapping
+    @PostMapping("/add")
     @Transactional
     fun createCarBase(@RequestBody carBase: CarBase): ResponseEntity<Any> {
         carBaseService.addCarBase(carBase)
         return ResponseEntity("Car Base is created successfully", HttpStatus.CREATED)
     }
-
 }

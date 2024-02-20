@@ -7,11 +7,15 @@ import java.util.*
 @Entity
 data class Car(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
-    val plate: String,
-    val available: Boolean,
+    var id: Long = 0,  // Identificador único del coche
 
-    @ManyToOne
-    @JoinColumn(name = "base_id")
-    val base: CarBase?
+    @Column(nullable = false, unique = true)
+    val plate: String,  // Número de matrícula del coche, único y obligatorio
+
+    @Column(nullable = false)
+    val available: Boolean,  // Indica si el coche está disponible o no
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "base_id", nullable = false)
+    val base: CarBase  // Base a la que pertenece el coche, relación Many-to-One
 )

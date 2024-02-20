@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*
 class CarServiceController @Autowired constructor(private val carService: CarService) {
 
     /**
-     * Return all Cars
+     * Método para obtener todos los coches.
      */
     @GetMapping("/allCars")
     fun getAllCars(): ResponseEntity<Any> {
@@ -22,7 +22,9 @@ class CarServiceController @Autowired constructor(private val carService: CarSer
     }
 
     /**
-     * Update a Car
+     * Método para actualizar un coche.
+     * @param id ID del coche a actualizar.
+     * @param car Objeto Car con los datos actualizados.
      */
     @PutMapping("/{id}")
     @Transactional
@@ -32,7 +34,8 @@ class CarServiceController @Autowired constructor(private val carService: CarSer
     }
 
     /**
-     * Delete a Car
+     * Método para eliminar un coche.
+     * @param id ID del coche a eliminar.
      */
     @DeleteMapping("/{id}")
     @Transactional
@@ -42,9 +45,10 @@ class CarServiceController @Autowired constructor(private val carService: CarSer
     }
 
     /**
-     * Create a Car
+     * Método para crear un coche nuevo.
+     * @param car Objeto Car con los datos del coche a crear.
      */
-    @PostMapping("/add")
+    @PostMapping("add")
     @Transactional
     fun createCar(@RequestBody car: Car): ResponseEntity<Any> {
         carService.AddCar(car)
